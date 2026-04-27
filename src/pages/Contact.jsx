@@ -7,7 +7,10 @@ import { MapPin, Phone, Mail, Clock, HelpCircle, CheckCircle } from 'lucide-reac
 const Contact = () => {
   // Load contact info from environment variables
   const companyAddress = import.meta.env.VITE_COMPANY_ADDRESS || 'Karachi, Pakistan';
-  const companyPhone = import.meta.env.VITE_COMPANY_PHONE || '+92-XXX-XXXXXXX';
+  const companyPhones = [
+    import.meta.env.VITE_COMPANY_PHONE,
+    import.meta.env.VITE_COMPANY_PHONE_ALT,
+  ].filter(Boolean);
   const companyEmail = import.meta.env.VITE_COMPANY_EMAIL || 'info@jbil.net';
   const companyHours = import.meta.env.VITE_COMPANY_HOURS || 'Monday - Friday: 9:00 AM - 5:00 PM PST';
 
@@ -54,7 +57,21 @@ const Contact = () => {
                 </div>
                 <div>
                   <h4 className="font-bold text-secondary mb-1">Phone</h4>
-                  <a href={`tel:${companyPhone}`} className="text-text text-sm leading-relaxed hover:text-accent transition-colors">{companyPhone}</a>
+                  <div className="space-y-1">
+                    {companyPhones.length > 0 ? (
+                      companyPhones.map((phone) => (
+                        <a
+                          key={phone}
+                          href={`tel:${phone.replace(/\s+/g, '')}`}
+                          className="block text-text text-sm leading-relaxed hover:text-accent transition-colors"
+                        >
+                          {phone}
+                        </a>
+                      ))
+                    ) : (
+                      <a href="tel:+92XXXXXXXXXX" className="text-text text-sm leading-relaxed hover:text-accent transition-colors">+92-XXX-XXXXXXX</a>
+                    )}
+                  </div>
                 </div>
               </div>
 

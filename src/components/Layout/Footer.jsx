@@ -6,9 +6,13 @@ import logoImg from '../../img/logo3.png';
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   const companyEmail = import.meta.env.VITE_COMPANY_EMAIL || 'info@jbil.net';
-  const companyPhone = import.meta.env.VITE_COMPANY_PHONE || '+92-XXX-XXXXXXX';
+  const companyPhones = [
+    import.meta.env.VITE_COMPANY_PHONE,
+    import.meta.env.VITE_COMPANY_PHONE_ALT,
+  ].filter(Boolean);
   const companyAddress = import.meta.env.VITE_COMPANY_ADDRESS || 'Karachi, Pakistan';
   const companyHours = import.meta.env.VITE_COMPANY_HOURS || 'Monday - Friday: 9:00 AM - 5:00 PM PST';
+  const whatsappPhone = (companyPhones[0] || '').replace(/\D/g, '');
 
   return (
     <footer className="bg-secondary text-gray-300 pt-16 pb-8">
@@ -26,7 +30,7 @@ const Footer = () => {
             <div className="flex space-x-4">
               <a href="https://www.facebook.com/jbil.industries" target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors"><Facebook className="w-5 h-5" /></a>
               <a href="https://www.linkedin.com/company/jbil-industries" target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors"><Linkedin className="w-5 h-5" /></a>
-              <a href={`https://wa.me/923216123456`} target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors font-semibold text-sm flex items-center">WA</a>
+              <a href={`https://wa.me/${whatsappPhone || '923009290402'}`} target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors font-semibold text-sm flex items-center">WA</a>
             </div>
           </div>
 
@@ -63,7 +67,21 @@ const Footer = () => {
               </li>
               <li className="flex items-center">
                 <Phone className="w-5 h-5 text-accent mr-3 flex-shrink-0" />
-                <a href={`tel:${companyPhone}`} className="text-sm hover:text-accent transition-colors">{companyPhone}</a>
+                <div className="space-y-1">
+                  {companyPhones.length > 0 ? (
+                    companyPhones.map((phone) => (
+                      <a
+                        key={phone}
+                        href={`tel:${phone.replace(/\s+/g, '')}`}
+                        className="block text-sm hover:text-accent transition-colors"
+                      >
+                        {phone}
+                      </a>
+                    ))
+                  ) : (
+                    <a href="tel:+92XXXXXXXXXX" className="block text-sm hover:text-accent transition-colors">+92-XXX-XXXXXXX</a>
+                  )}
+                </div>
               </li>
               <li className="flex items-center">
                 <Mail className="w-5 h-5 text-accent mr-3 flex-shrink-0" />
