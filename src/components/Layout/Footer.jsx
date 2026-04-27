@@ -7,11 +7,11 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
   const companyEmail = import.meta.env.VITE_COMPANY_EMAIL || 'info@jbil.net';
   const companyPhones = [
-    import.meta.env.VITE_COMPANY_PHONE,
-    import.meta.env.VITE_COMPANY_PHONE_ALT,
+    import.meta.env.VITE_COMPANY_PHONE || '+92 300 9290402',
+    import.meta.env.VITE_COMPANY_PHONE_ALT || '+92 331 9290409',
   ].filter(Boolean);
-  const companyAddress = import.meta.env.VITE_COMPANY_ADDRESS || 'Karachi, Pakistan';
-  const companyHours = import.meta.env.VITE_COMPANY_HOURS || 'Monday - Friday: 9:00 AM - 5:00 PM PST';
+  const companyAddress = import.meta.env.VITE_COMPANY_ADDRESS || 'Flat No. 4 2nd Floor Plot No, 62-E, 11th Commercial Street Phase 11, Exe. DHA, Karachi.';
+  const companyHours = import.meta.env.VITE_COMPANY_HOURS || 'Monday - Saturday: 9:00 AM - 5:00 PM (PST)';
   const whatsappPhone = (companyPhones[0] || '').replace(/\D/g, '');
 
   return (
